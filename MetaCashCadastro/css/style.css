@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Inter', sans-serif; 
+}
+
+body {
+    background: radial-gradient(circle at center, #2c4a63 0%, #0f172a 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    color: white;
+}
+
+/* Logo e Cabeçalho */
+.header-logo { text-align: center; margin-bottom: 25px; }
+.header-logo .icon { 
+    background: #1e3a5f; width: 50px; height: 50px; border-radius: 12px;
+    margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.header-logo h1 { font-size: 26px; font-weight: 600; }
+.header-logo p { font-size: 14px; color: #94a3b8; }
+
+/* Card Principal (Login e Cadastro) */
+.register-card, .login-card {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 650px; /* Cadastro usa 650px, Login pode ser menor */
+    color: #1e293b;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Ajuste específico para o card de login ser mais estreito */
+.login-card { max-width: 400px; }
+
+h2 { margin-bottom: 25px; font-size: 22px; font-weight: 700; color: #0f172a; }
+
+/* Grid do Formulário (2 colunas para cadastro) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 13px; margin-bottom: 6px; font-weight: 600; color: #475569; }
+
+/* Inputs com Ícones */
+.input-container { position: relative; display: flex; align-items: center; }
+.input-container i { position: absolute; left: 15px; color: #94a3b8; }
+.input-container input {
+    width: 100%; padding: 12px 15px 12px 42px;
+    border: 1.5px solid #e2e8f0; border-radius: 10px;
+    outline: none; font-size: 14px; transition: 0.3s;
+}
+.input-container input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+
+/* Requisitos de Senha */
+.password-requirements {
+    grid-column: span 2;
+    background: #f0f9ff;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 12px;
+    color: #334155;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid #e2e8f0;
+    margin: 5px 0;
+}
+.req { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.req i { font-size: 10px; color: #94a3b8; }
+
+/* Botão Estilizado */
+.btn-entrar, .btn-cadastrar {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(to right, #1e3a5f, #2d5a8e);
+    color: white; border: none; border-radius: 10px;
+    font-weight: 600; cursor: pointer; font-size: 15px;
+    transition: transform 0.2s, filter 0.2s;
+}
+.btn-entrar:hover, .btn-cadastrar:hover { transform: translateY(-1px); filter: brightness(1.1); }
+
+/* Rodapé */
+.footer-text { text-align: center; margin-top: 20px; font-size: 14px; color: #64748b; }
+.footer-text a { color: #0ea5e9; text-decoration: none; font-weight: 600; }
+.copyright { margin-top: 30px; font-size: 11px; color: #94a3b8; opacity: 0.8; }
+
+/* Responsividade para Celular */
+@media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .password-requirements { grid-template-columns: 1fr; }
+    .password-requirements, .btn-cadastrar, .terms { grid-column: span 1; }
+}
