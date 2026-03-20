@@ -55,7 +55,7 @@
             <button type="submit" class="btn-entrar">Entrar</button>
         </form>
 
-        <p class="footer-text">Não tem uma conta? <a href="#">Cadastre-se</a></p>
+       <p class="footer-text">Não tem uma conta? <a href="../MetaCashCadastro/index.php">Cadastre-se</a></p>
     </div>
 
     <p class="copyright">© 2026 MetaCash. Todos os direitos reservados.</p>

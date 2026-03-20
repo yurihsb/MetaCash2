@@ -11,7 +11,7 @@
 body {
     /* Camada escura + sua imagem */
     background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), 
-                url('../img/fundo.jpg') no-repeat center center fixed;
+                url('../img/fundo.png') no-repeat center center fixed;
 
     /* Aumente o valor de 110% para 120% ou 130% se quiser "aproximar" ainda mais */
     background-size: 115%; 

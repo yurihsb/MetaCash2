@@ -1,105 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { 
-    box-sizing: border-box; 
-    margin: 0; 
-    padding: 0; 
+body { 
     font-family: 'Inter', sans-serif; 
+    /* Substituímos o gradiente pela imagem de fundo */
+    background-image: url('../img/fundo.png'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Mantém o fundo fixo ao rolar */
+    background-color: #0d1525; /* Cor de segurança caso a imagem não carregue */
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 40px 20px;
+    color: #fff;
 }
 
-body {
-    background: radial-gradient(circle at center, #2c4a63 0%, #0f172a 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    color: white;
+/* Camada de escurecimento opcional para o fundo (melhora a leitura) */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(13, 21, 37, 0.7); /* Ajuste o 0.7 para mais ou menos brilho */
+    z-index: -1;
 }
 
-/* Logo e Cabeçalho */
-.header-logo { text-align: center; margin-bottom: 25px; }
-.header-logo .icon { 
-    background: #1e3a5f; width: 50px; height: 50px; border-radius: 12px;
-    margin: 0 auto 10px; display: flex; align-items: center; justify-content: center;
-    font-size: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-.header-logo h1 { font-size: 26px; font-weight: 600; }
-.header-logo p { font-size: 14px; color: #94a3b8; }
+.container { width: 100%; max-width: 680px; text-align: center; position: relative; }
 
-/* Card Principal (Login e Cadastro) */
-.register-card, .login-card {
-    background: #ffffff;
-    padding: 35px;
-    border-radius: 20px;
-    width: 100%;
-    max-width: 650px; /* Cadastro usa 650px, Login pode ser menor */
+.logo-header { margin-bottom: 30px; }
+
+/* Alteramos o .icon-main para comportar a imagem da logo */
+.icon-main { 
+    width: 60px; /* Ajuste o tamanho da sua logo aqui */
+    height: auto;
+    margin: 0 auto 15px; 
+    display: block; 
+}
+
+.logo-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 5px; }
+.logo-header p { color: #94a3b8; font-size: 15px; }
+
+/* Restante do código mantido para preservar o layout */
+.card { 
+    background: #fff; 
     color: #1e293b;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    padding: 40px; 
+    border-radius: 12px; 
+    text-align: left; 
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5); 
 }
 
-/* Ajuste específico para o card de login ser mais estreito */
-.login-card { max-width: 400px; }
+.card h2 { font-size: 24px; font-weight: 700; margin-bottom: 25px; }
 
-h2 { margin-bottom: 25px; font-size: 22px; font-weight: 700; color: #0f172a; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 
-/* Grid do Formulário (2 colunas para cadastro) */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+.input-group label { 
+    display: block; 
+    font-size: 13px; 
+    font-weight: 600; 
+    color: #475569; 
+    margin-bottom: 8px; 
 }
 
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; font-size: 13px; margin-bottom: 6px; font-weight: 600; color: #475569; }
+.input-group label span { color: #ef4444; }
 
-/* Inputs com Ícones */
-.input-container { position: relative; display: flex; align-items: center; }
-.input-container i { position: absolute; left: 15px; color: #94a3b8; }
-.input-container input {
-    width: 100%; padding: 12px 15px 12px 42px;
-    border: 1.5px solid #e2e8f0; border-radius: 10px;
-    outline: none; font-size: 14px; transition: 0.3s;
+.input-with-icon { position: relative; display: flex; align-items: center; }
+
+.input-with-icon i { 
+    position: absolute; 
+    left: 12px; 
+    font-style: normal; 
+    color: #94a3b8; 
 }
-.input-container input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
 
-/* Requisitos de Senha */
-.password-requirements {
-    grid-column: span 2;
-    background: #f0f9ff;
-    padding: 15px;
-    border-radius: 12px;
-    font-size: 12px;
-    color: #334155;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid #e2e8f0;
-    margin: 5px 0;
+.input-with-icon input {
+    width: 100%; 
+    padding: 12px 12px 12px 40px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 8px; 
+    font-size: 14px;
+    transition: border 0.2s;
 }
-.req { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
-.req i { font-size: 10px; color: #94a3b8; }
 
-/* Botão Estilizado */
-.btn-entrar, .btn-cadastrar {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(to right, #1e3a5f, #2d5a8e);
-    color: white; border: none; border-radius: 10px;
-    font-weight: 600; cursor: pointer; font-size: 15px;
-    transition: transform 0.2s, filter 0.2s;
+.requirements-container { 
+    background-color: #f0f7ff; 
+    padding: 20px; 
+    border-radius: 8px; 
+    margin: 20px 0;
+    border: 1px solid #e0e7ff;
 }
-.btn-entrar:hover, .btn-cadastrar:hover { transform: translateY(-1px); filter: brightness(1.1); }
 
-/* Rodapé */
-.footer-text { text-align: center; margin-top: 20px; font-size: 14px; color: #64748b; }
-.footer-text a { color: #0ea5e9; text-decoration: none; font-weight: 600; }
-.copyright { margin-top: 30px; font-size: 11px; color: #94a3b8; opacity: 0.8; }
+.requirements-container p { font-weight: 700; font-size: 13px; margin-bottom: 12px; color: #1e293b; }
 
-/* Responsividade para Celular */
-@media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .password-requirements { grid-template-columns: 1fr; }
-    .password-requirements, .btn-cadastrar, .terms { grid-column: span 1; }
+.requirements-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.requirements-grid span { color: #64748b; font-size: 12px; display: flex; align-items: center; }
+
+.terms { font-size: 13px; color: #64748b; margin: 20px 0; display: flex; align-items: center; gap: 8px; }
+.terms a { color: #3b82f6; text-decoration: none; }
+
+.btn-submit { 
+    background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%); 
+    color: white; 
+    width: 100%; 
+    padding: 14px; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: 700; 
+    cursor: pointer;
 }
+
+.login-link { text-align: center; margin-top: 20px; font-size: 14px; }
+.login-link a { color: #3b82f6; text-decoration: none; font-weight: 600; }
+
+.footer-copyright { margin-top: 30px; color: #94a3b8; font-size: 12px; }
+
+@media (max-width: 600px) { .grid, .requirements-grid { grid-template-columns: 1fr; } }
