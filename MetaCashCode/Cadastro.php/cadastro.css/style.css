@@ -2,18 +2,23 @@
 
 body { 
     font-family: 'Inter', sans-serif; 
-    /* Substituímos o gradiente pela imagem de fundo */
+    /* Define a imagem de fundo */
     background-image: url('../img/fundo.png'); 
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Mantém o fundo fixo ao rolar */
-    background-color: #0d1525; /* Cor de segurança caso a imagem não carregue */
+    background-attachment: fixed; 
+    
+    /* Cor sólida de fundo (apenas se a imagem falhar) */
+    background-color: #ffffff; 
+    
+    /* Alinhamento central */
     min-height: 100vh; 
+    margin: 0; /* Importante para remover espaços em branco nas bordas */
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    padding: 40px 20px;
+    padding: 20px;
     color: #fff;
 }
 

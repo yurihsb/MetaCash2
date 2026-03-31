@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="login.css/style.css">
 </head>
 <body>
 
@@ -49,13 +49,13 @@
                 <label>
                     <input type="checkbox" name="lembrar"> Lembrar-me
                 </label>
-                <a href="#">Esqueceu a senha?</a>
+                            <a href="../Esquecer-senha.php/esqueceu-senha.php">Esqueceu senha?</a>
             </div>
 
             <button type="submit" class="btn-entrar">Entrar</button>
         </form>
 
-       <p class="footer-text">Não tem uma conta? <a href="../MetaCashCadastro/index.php">Cadastre-se</a></p>
+        <p class="footer-text">Não tem uma conta? <a href="../Cadastro.php/index.php">Cadastre-se</a>
     </div>
 
     <p class="copyright">© 2026 MetaCash. Todos os direitos reservados.</p>

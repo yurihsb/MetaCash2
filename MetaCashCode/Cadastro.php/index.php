@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetaCash - Criar Conta</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="cadastro.css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -105,7 +105,7 @@
             <button type="submit" class="btn-submit">Criar Conta</button>
         </form>
 
-        <p class="login-link">Já tem uma conta? <a href="../MetaCashLogin/index.php">Fazer login</a></p>
+        <p class="login-link">Já tem uma conta? <a href="../Login.php/index.php">Fazer login</a></p>
     </div>
     
     <footer class="footer-copyright">

@@ -1,8 +1,8 @@
 <?php
 $host = "localhost";
-$dbname = "metacash";
+$dbname = "metacash-db";
 $user = "postgres";
-$pass = "suasenha";
+$pass = "0369";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
@@ -22,6 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: index.php?sucesso=1");
     } catch (PDOException $e) {
         // Redireciona com erro
-        header("Location: index.php?erro=" . urlencode($e->getMessage()));
+        header("Location: MetaCashCode/Login.php/index.php?erro=" . urlencode($e->getMessage()));
     }
 }
