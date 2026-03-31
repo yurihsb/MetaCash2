@@ -8,9 +8,9 @@ document.getElementById('form-validacao').addEventListener('submit', function(e)
 
     if (!codigoExpirado) {
         // Se o código for válido e NÃO expirou
-        window.location.href = "EmailCheck.php/index.php"; 
+        window.location.href = "../EmailCheck.php/index.php"; 
     } else {
         // Se o código expirou ou é inválido
-        window.location.href = "Falha.php/falha.php";
+        window.location.href = "../Falha.php/falha.php";
     }
 });

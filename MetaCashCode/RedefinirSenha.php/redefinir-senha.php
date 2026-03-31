@@ -23,7 +23,7 @@
     <p class="main-subtitle">Crie uma nova senha segura</p>
 
     <div class="card">
-        <form action="processa-nova-senha.php" method="POST">
+        <form action="../Login.php/index.php" method="POST">
             
             <div class="input-group">
                 <label class="input-label">Nova Senha</label>

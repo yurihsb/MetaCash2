@@ -29,12 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // --- REDIRECIONAMENTO ---
         // Aqui redirecionamos o usuário para a página de sucesso/instruções
-        header("Location: RedefinirSenha.php/redefinir-senha.php?status=enviado&email=" . urlencode($email));
+        header("Location: ../RedefinirSenha.php/redefinir-senha.php?status=enviado&email=" . urlencode($email));
         exit(); 
 
     } else {
         // Se o e-mail for inválido ou vazio
-        header("Location: esqueceu.php?erro=email_invalido");
+        header("Location: ../esqueceu-senha.php?erro=email_invalido");
         exit();
     }
 }
