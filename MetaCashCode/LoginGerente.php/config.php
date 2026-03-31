@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $user = "root";       // Usuário padrão do MySQL
-$pass = "";           // Senha padrão (geralmente vazia no localhost)
+$pass = "0369";           // Senha padrão (geralmente vazia no localhost)
 $db   = "metacash_db"; // Nome do seu banco de dados
 
 // Cria a conexão

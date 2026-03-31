@@ -6,20 +6,22 @@
     <title>MetaCash - Gestão Financeira</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="HomeG.css/style.css">
 </head>
 <body>
 
     <main class="container">
-        <div class="logo-box">M</div>
+        <div class="logo-container">
+            <img src="../HomeGerente.php/img/logo.png" alt="MetaCash Logo" class="logo-img">
+            
+            </div>
 
         <h1>MetaCash</h1>
         <p class="subtitle">Gestão Financeira Empresarial Simples e Eficiente</p>
 
         <nav class="button-group">
             <a href="../Login.php/index.php" class="btn">Entrar</a>
-            <a href="gerente.php" class="btn">Entrar como gerente</a>
+            <a href="../LoginGerente.php/index.php" class="btn">Entrar como gerente</a>
         </nav>
 
         <div class="status-badge">

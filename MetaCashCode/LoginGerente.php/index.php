@@ -59,7 +59,7 @@
             </div>
 
             <div class="card-footer">
-                <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+                <p>Não tem uma conta? <a href="../Cadastro.php/index.php">Cadastre-se</a></p>
             </div>
         </main>
 
