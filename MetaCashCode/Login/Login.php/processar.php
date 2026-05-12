@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['nome'] = $usuario['nome'];
 
         // --- FUNÇÃO DE REDIRECIONAMENTO (SUCESSO) ---
-        header("Location: dashboard.php");
+        header("Location: .../Dashboard/index.php");
         exit; // O exit é obrigatório para interromper o script aqui
         
     } else {

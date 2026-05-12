@@ -2,7 +2,7 @@
 // Configurações do MySQL
 $host     = '127.0.0.1';
 $port     = '3306'; // Porta padrão do MySQL (geralmente 3306)
-$db_name  = 'metacash';
+$db_name  = 'MetaC';
 $usuario  = 'root';   // Usuário padrão do MySQL (comum ser 'root')
 $senha    = '0936';   // Sua senha do banco de dados
 

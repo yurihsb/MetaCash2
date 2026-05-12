@@ -1,0 +1,154 @@
+{
+    "saldo_total": 3.2142774716496225e+25,
+    "receitas_mes": 3.2142775329378545e+25,
+    "despesas_mes": 6.12882320198399e+17,
+    "transacoes": [
+        {
+            "titulo": "rubens",
+            "valor": 3.2142132131321215e+25,
+            "tipo": "e",
+            "cat": "Sal\u00e1rios",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3.214213213132122e+20,
+            "tipo": "e",
+            "cat": "Sal\u00e1rios",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3.214213213132122e+20,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3214213213132121,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3214213213132121,
+            "tipo": "e",
+            "cat": "Sal\u00e1rios",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 600000000000,
+            "tipo": "e",
+            "cat": "Sal\u00e1rios",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "ouhuoh",
+            "valor": 85375198502893700,
+            "tipo": "s",
+            "cat": "Compras",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "wedrdrfewc",
+            "valor": 1.853751985028937e+17,
+            "tipo": "s",
+            "cat": "Administrativo",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "fabinho barrichelo",
+            "valor": 3432432432324344,
+            "tipo": "e",
+            "cat": "Administrativo",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "ewddsa",
+            "valor": 342131921,
+            "tipo": "e",
+            "cat": "Administrativo",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "dsfsaasd",
+            "valor": 3.421319210572658e+17,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "asdaddadads",
+            "valor": 3.421319210572658e+17,
+            "tipo": "s",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "asdaddadads",
+            "valor": 3421321321321213,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "asdsad",
+            "valor": 32121,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "sdfedws",
+            "valor": 21321321,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "dcdsadsa",
+            "valor": 2132112321,
+            "tipo": "s",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "dfs",
+            "valor": 3233424,
+            "tipo": "s",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "dfs",
+            "valor": 3233424,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "fabinho barrichelo",
+            "valor": 5000,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "fabinho barrichelo",
+            "valor": 5000,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        },
+        {
+            "titulo": "sdc",
+            "valor": 324,
+            "tipo": "e",
+            "cat": "Geral",
+            "data": "12\/05\/2026"
+        }
+    ]
+}
