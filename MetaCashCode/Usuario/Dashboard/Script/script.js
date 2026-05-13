@@ -1,5 +1,5 @@
 /**
- * SISTEMA DE GESTÃO FINANCEIRA - SCRIPT CONSOLIDADO
+ * SISTEMA DE GESTÃO FINANCEIRA - SCRIPT CONSOLIDADO OTIMIZADO
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const setupModal = (btnId, modalId) => {
         const btn = document.getElementById(btnId);
         const modal = document.getElementById(modalId);
-
         if (!modal) return;
 
         const toggle = (show) => {
@@ -15,10 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             modal.classList.toggle('flex', show);
         };
 
-        // Abrir modal
         if (btn) btn.addEventListener('click', () => toggle(true));
 
-        // Fechar modal (clicando fora ou em botões de fechar)
         modal.addEventListener('click', (e) => {
             if (e.target === modal || e.target.classList.contains('btn-fechar')) {
                 toggle(false);
@@ -26,29 +23,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Inicializa os modais da página
-    setupModal('btnAbrirModal', 'modalTransacao');
+    // IDs atualizados conforme os botões da sua Sidebar e Main
+    setupModal('btnAbrirModal', 'modalTransacao'); 
     setupModal('btnAbrirRelatorio', 'modalRelatorio');
 
-
     // 2. INICIALIZAÇÃO DE GRÁFICOS
-    // Verifica se os dados globais existem (passados pelo PHP/Backend)
     if (typeof chartData !== 'undefined') {
         renderizarGraficos(chartData);
     }
 });
 
-/**
- * Função principal para renderização de gráficos usando Chart.js
- * @param {Object} data - Objeto contendo labelsMeses, receitas, despesas, catLabels, catValores
- */
 function renderizarGraficos(data) {
     const commonOptions = {
         responsive: true,
         maintainAspectRatio: false
     };
 
-    // --- Gráfico de Linha (Receitas vs Despesas) ---
+    // --- Gráfico de Linha (Receitas vs Despesas Negativas vs Lucro) ---
     const ctxLinha = document.getElementById('chartLinha')?.getContext('2d');
     if (ctxLinha) {
         new Chart(ctxLinha, {
@@ -66,19 +57,41 @@ function renderizarGraficos(data) {
                     },
                     {
                         label: 'Despesas',
-                        data: data.despesas,
+                        data: data.despesas, // Valores negativos vindos do PHP
                         borderColor: '#e71d36',
                         backgroundColor: 'rgba(231, 29, 54, 0.1)',
                         fill: true,
                         tension: 0.4
+                    },
+                    {
+                        label: 'Lucro Líquido',
+                        // Soma (pois despesa já é negativa: 1000 + (-400) = 600)
+                        data: data.receitas.map((rec, i) => rec + data.despesas[i]),
+                        borderColor: '#3a86ff',
+                        borderDash: [5, 5],
+                        fill: false,
+                        tension: 0.4
                     }
                 ]
             },
-            options: { ...commonOptions, plugins: { legend: { display: true, position: 'top' } } }
+            options: { 
+                ...commonOptions, 
+                plugins: { 
+                    legend: { display: true, position: 'top' },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: (value) => 'R$ ' + value.toLocaleString('pt-BR')
+                        }
+                    }
+                }
+            }
         });
     }
 
-    // --- Gráfico de Rosca (Composição por Categoria) ---
+    // --- Gráfico de Rosca (Distribuição de Gastos) ---
     const ctxPizza = document.getElementById('chartPizza')?.getContext('2d');
     if (ctxPizza) {
         new Chart(ctxPizza, {
@@ -86,8 +99,9 @@ function renderizarGraficos(data) {
             data: {
                 labels: data.catLabels,
                 datasets: [{
-                    data: data.catValores.map(v => Math.abs(v)), // Garante valores positivos para o desenho
-                    backgroundColor: ['#0d1b2a', '#1b434d', '#2ec4b6', '#3a86ff', '#8338ec', '#ff9f1c'],
+                    // Math.abs garante que o gráfico desenhe mesmo com valores negativos
+                    data: data.catValores.map(v => Math.abs(v)),
+                    backgroundColor: ['#0d1b2a', '#1b434d', '#2ec4b6', '#3a86ff', '#8338ec', '#ff9f1c', '#ef4444'],
                     borderWidth: 2,
                     borderColor: '#ffffff'
                 }]
@@ -96,12 +110,13 @@ function renderizarGraficos(data) {
                 ...commonOptions,
                 cutout: '70%',
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: { position: 'right' },
                     tooltip: {
                         callbacks: {
                             label: (ctx) => {
-                                const valor = data.catValores[ctx.dataIndex];
-                                return ` ${ctx.label}: ${valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+                                // Recupera o valor original (negativo) para exibir no texto
+                                const valorOriginal = data.catValores[ctx.dataIndex];
+                                return ` ${ctx.label}: R$ ${valorOriginal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
                             }
                         }
                     }
@@ -109,9 +124,4 @@ function renderizarGraficos(data) {
             }
         });
     }
-    
-    
-    
-    
 }
-

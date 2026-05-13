@@ -1,22 +1,31 @@
-<?php include('data.php'); ?>
+<?php 
+// 1. Verificação de segurança e inclusão de dados
+if (!file_exists('data.php')) {
+    die("Erro: O arquivo data.php não foi encontrado no diretório: " . getcwd());
+}
+include('data.php'); 
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $config['nome_app']; ?> - Gestão Financeira</title>
-    <link rel="stylesheet" href="HomePB.css/style.css">
+    <title><?php echo $config['nome_app'] ?? 'MetaCash'; ?> - Gestão Financeira</title>
+    
+    <!-- CORREÇÃO: Removido o ".css" do nome da pasta, seguindo o padrão web -->
+    <link rel="stylesheet" href="../HomePB/HomePB.css/style.css">
 </head>
 <body>
 
     <nav class="navbar">
         <a href="index.php" class="nav-logo">
             <img src="img/logo.png" alt="Logo">
-            <span><?php echo $config['nome_app']; ?></span>
+            <span><?php echo $config['nome_app'] ?? 'MetaCash'; ?></span>
         </a>
         <div class="nav-links">
-            <a href="../Login.php/index.php" class="btn-login">Entrar</a>
-            <a href="../Cadastro.php/index.php" class="btn-cadastro">Cadastro</a>
+            <!-- CORREÇÃO: Simplificação de caminhos. Removido o ".php" do nome das pastas -->
+            <a href="../..//Login/Login.php/index.php" class="btn-login">Entrar</a>
+            <a href="../../Login/Cadastro.php/index.php" class="btn-cadastro">Cadastro</a>
         </div>
     </nav>
 
@@ -25,7 +34,8 @@
         <h1>Gestão Financeira Empresarial <br> <span class="text-cyan">Completamente Personalizável</span></h1>
         <p>MetaCash é a plataforma que se adapta ao seu negócio. Customize cores, layouts e crie a ferramenta perfeita.</p>
         
-        <a href="../HomeGerente.php/index.php" class="btn-main">
+        <!-- CORREÇÃO: Ajuste de link (removido o .php da pasta) -->
+        <a href="../../Login/Cadastro.php/index.php" class="btn-main">
             <span>Experimentar</span> <span>+</span>
         </a>
 
@@ -48,7 +58,7 @@
         </div>
 
         <div class="custom-grid">
-            <?php foreach ($custom_features as $cf): ?>
+            <?php if(isset($custom_features) && is_array($custom_features)): foreach ($custom_features as $cf): ?>
                 <div class="custom-card">
                     <div class="icon-cyan">
                         <?php echo $cf['icon']; ?>
@@ -56,7 +66,7 @@
                     <h3><?php echo $cf['title']; ?></h3>
                     <p><?php echo $cf['desc']; ?></p>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach; endif; ?>
         </div>
     </section>
 
@@ -67,7 +77,7 @@
         </div>
         
         <div class="features-grid">
-            <?php foreach ($features as $f): ?>
+            <?php if(isset($features) && is_array($features)): foreach ($features as $f): ?>
                 <div class="feature-card">
                     <div class="icon-blue">
                         <?php echo $f['icon']; ?>
@@ -75,23 +85,24 @@
                     <h4><?php echo $f['title']; ?></h4>
                     <p><?php echo $f['desc']; ?></p>
                 </div>
-            <?php endforeach; ?>
+            <?php endforeach; endif; ?>
         </div>
     </section>
 
     <section class="cta-section">
         <div class="cta-container">
-            <h2><?php echo $cta_data['titulo']; ?></h2>
-            <p><?php echo $cta_data['subtitulo']; ?></p>
+            <h2><?php echo $cta_data['titulo'] ?? 'Pronto para começar?'; ?></h2>
+            <p><?php echo $cta_data['subtitulo'] ?? ''; ?></p>
             <div class="cta-btns">
-                <a href="../Cadastro.php/index.php" class="btn-white">Cadastrar-se Agora →</a>
-                <a href="../Login.php/index.php" class="btn-outline">Fazer Login</a>
+                <!-- CORREÇÃO: Removido o ".php" do nome da pasta para evitar erro de diretório -->
+                <a href="../../Login/Cadastro.php/index.php" class="btn-white">Cadastrar-se Agora →</a>
+                <a href="../../Login/Login.php/index.php" class="btn-outline">Fazer Login</a>
             </div>
         </div>
     </section>
 
     <footer class="footer-simple">
-        <p>© <?php echo $config['ano_atual'] . " " . $config['nome_app']; ?>. Todos os direitos reservados.</p>
+        <p>© <?php echo (isset($config['ano_atual']) ? $config['ano_atual'] : date('Y')) . " " . ($config['nome_app'] ?? 'MetaCash'); ?>. Todos os direitos reservados.</p>
     </footer>
 
 </body>

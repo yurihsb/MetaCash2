@@ -138,12 +138,14 @@ $categorias_valores = isset($categorias_valores) ? $categorias_valores : [];
         <form action="salvar_transacao.php" method="POST" class="space-y-4">
             <input type="text" name="titulo" required placeholder="Título" class="w-full border rounded-xl px-4 py-2">
             <input type="number" step="0.01" name="valor" required placeholder="Valor" class="w-full border rounded-xl px-4 py-2">
-            <select name="cat" class="w-full border rounded-xl px-4 py-2">
-                <option value="Geral">Geral</option>
-                <option value="Administrativo">Administrativo</option>
-                <option value="Salários">Salários</option>
-                <option value="Marketing">Marketing</option>
-            </select>
+<!-- Dentro do MODAL NOVA TRANSAÇÃO -->
+<select name="cat" class="w-full border rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-teal-500">
+    <option value="Geral">Geral</option>
+    <option value="Vendas">Vendas</option> <!-- Nova Categoria -->
+    <option value="Administrativo">Administrativo</option>
+    <option value="Salários">Salários</option>
+    <option value="Marketing">Marketing</option>
+</select>
             <select name="tipo" class="w-full border rounded-xl px-4 py-2">
                 <option value="e">Entrada (+)</option>
                 <option value="s">Saída (-)</option>

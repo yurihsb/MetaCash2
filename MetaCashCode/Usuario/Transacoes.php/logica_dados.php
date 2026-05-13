@@ -1,7 +1,7 @@
 <?php
 /**
  * MetaCash - Lógica de Processamento de Dados
- * Este arquivo lê o banco JSON e prepara as variáveis para a View.
+ * Versão Otimizada
  */
 
 // 1. Configurações de erro para desenvolvimento
@@ -10,50 +10,55 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // 2. Definição do caminho do banco de dados JSON
-// O caminho ../Dashboard/banco.json assume que a pasta Dashboard 
-// está no mesmo nível da pasta Transacoes.php
-$caminho_json = '../Dashboard/banco.json';
+// Usamos __DIR__ para garantir que o PHP encontre o arquivo independente de quem inclua este script
+$caminho_json = __DIR__ . '/../Dashboard/banco.json';
 
-// 3. Carregamento e decodificação dos dados
+// 3. Estrutura padrão (Caso o arquivo não exista ou esteja vazio)
+$default_storage = [
+    'saldo_total' => 0, 
+    'receitas_mes' => 0, 
+    'despesas_mes' => 0, 
+    'transacoes' => []
+];
+
+// 4. Carregamento e decodificação dos dados
 if (file_exists($caminho_json)) {
     $conteudo = file_get_contents($caminho_json);
     $storage = json_decode($conteudo, true);
     
-    // Caso o JSON esteja corrompido ou vazio, inicializa a estrutura
-    if (json_last_error() !== JSON_ERROR_NONE || !$storage) {
-        $storage = [
-            'saldo_total' => 0, 
-            'receitas_mes' => 0, 
-            'despesas_mes' => 0, 
-            'transacoes' => []
-        ];
+    // Validação se o JSON é válido
+    if (json_last_error() !== JSON_ERROR_NONE || !is_array($storage)) {
+        $storage = $default_storage;
     }
 } else {
-    // Caso o arquivo não exista fisicamente ainda
-    $storage = [
-        'saldo_total' => 0, 
-        'receitas_mes' => 0, 
-        'despesas_mes' => 0, 
-        'transacoes' => []
-    ];
+    $storage = $default_storage;
 }
 
-// 4. Preparação das variáveis globais para o index.php
-$transacoes = $storage['transacoes'] ?? [];
+// 5. Preparação das variáveis globais
+// Forçamos o cast para (array) para evitar erros de "invalid foreach" no index.php
+$transacoes = (array)($storage['transacoes'] ?? []);
+
 $dados_financeiros = [
     'receitas_mes' => $storage['receitas_mes'] ?? 0,
     'despesas_mes' => $storage['despesas_mes'] ?? 0,
-    'saldo_total' => $storage['saldo_total'] ?? 0
+    'saldo_total'  => $storage['saldo_total'] ?? 0
 ];
 
 /**
  * Função Auxiliar: Formata valores numéricos para o padrão de moeda Real (R$)
- * @param float $valor
- * @return string
  */
 if (!function_exists('formatarMoeda')) {
     function formatarMoeda($valor) {
-        return 'R$ ' . number_format(abs($valor), 2, ',', '.');
+        // Converte para float caso venha como string do JSON
+        $valorFloat = (float)$valor;
+        return 'R$ ' . number_format(abs($valorFloat), 2, ',', '.');
     }
 }
+
+// 6. Pequeno ajuste de segurança para o index.php
+// Se o array de transações estiver mal estruturado internamente, 
+// este filtro limpa entradas nulas
+$transacoes = array_filter($transacoes, function($item) {
+    return is_array($item) && isset($item['titulo'], $item['valor']);
+});
 ?>

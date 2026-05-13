@@ -1,82 +1,91 @@
 <?php
 $arquivo_db = 'banco.json';
 
-// 1. Carrega os dados salvos
+// 1. CARREGA OS DADOS
 if (!file_exists($arquivo_db)) {
     $storage = ['saldo_total' => 0, 'receitas_mes' => 0, 'despesas_mes' => 0, 'transacoes' => []];
 } else {
     $storage = json_decode(file_get_contents($arquivo_db), true);
 }
 
-// No data.php, verifique se está assim:
 $dados = [
     'saldo_total'  => $storage['saldo_total'] ?? 0,
     'receitas_mes' => $storage['receitas_mes'] ?? 0,
     'despesas_mes' => $storage['despesas_mes'] ?? 0
 ];
-$transacoes = $storage['transacoes'];
+$transacoes = $storage['transacoes'] ?? [];
 
-// 2. LÓGICA PARA O GRÁFICO DE LINHA
+// 2. LÓGICA PARA O GRÁFICO DE LINHA (Receitas vs Despesas Negativas)
 $labels_meses = ['Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar'];
+
 $dados_receitas = [0, 0, 0, 0, 0, 0, (float)$dados['receitas_mes']]; 
-$dados_despesas = [0, 0, 0, 0, 0, 0, (float)$dados['despesas_mes']];
+// Alterado para negativo aqui
+$dados_despesas = [0, 0, 0, 0, 0, 0, -(float)$dados['despesas_mes']]; 
 
-// 3. LÓGICA PARA O GRÁFICO DE PIZZA
-$categorias = [
-    'Administrativo' => 0,
-    'Manutenção' => 0,
-    'Marketing' => 0,
-    'Compras' => 0,
-    'Salários' => 0,
-    'Geral' => 0
-];
-
-foreach ($transacoes as $tr) {
-    if ($tr['tipo'] == 's') { 
-        $cat = isset($tr['cat']) ? $tr['cat'] : 'Geral';
-        if (isset($categorias[$cat])) {
-            $categorias[$cat] += (float)$tr['valor'];
-        } else {
-            $categorias['Geral'] += (float)$tr['valor'];
-        }
-    }
-}
-
-// Exemplo de como deve estar no seu data.php para o gráfico funcionar:
+// 3. LÓGICA PARA O GRÁFICO DE PIZZA (Gastos por Categoria com valores negativos)
 $categorias_temp = [];
-
-// No loop do data.php
 foreach ($transacoes as $tr) {
-    $cat = $tr['cat'];
-    $valor = (float)$tr['valor'];
-    
-    if (!isset($categorias_temp[$cat])) $categorias_temp[$cat] = 0;
-    
-    // Se for entrada soma, se for saída subtrai
-    if ($tr['tipo'] == 'e') {
-        $categorias_temp[$cat] += $valor;
-    } else {
+    if ($tr['tipo'] == 's') {
+        $cat = $tr['cat'] ?? 'Geral';
+        $valor = (float)$tr['valor'];
+        
+        if (!isset($categorias_temp[$cat])) {
+            $categorias_temp[$cat] = 0;
+        }
+        // Armazenamos como negativo
         $categorias_temp[$cat] -= $valor;
     }
 }
 
-$categorias_labels = array_keys($categorias_temp);
-$categorias_valores = array_values($categorias_temp);
-
-// Se não houver despesas, adiciona um valor fictício para o gráfico não sumir
-if (array_sum($categorias_valores) == 0) {
+if (empty($categorias_temp)) {
     $categorias_labels = ['Sem despesas'];
-    $categorias_valores = [1];
+    $categorias_valores = [0];
+} else {
+    $categorias_labels = array_keys($categorias_temp);
+    $categorias_valores = array_values($categorias_temp);
 }
 
-// 4. Cards e Formatação
+// 4. PREPARAÇÃO DO OBJETO PARA O JAVASCRIPT
+$chartData = [
+    'labelsMeses' => $labels_meses,
+    'receitas'    => $dados_receitas,
+    'despesas'    => $dados_despesas,
+    'catLabels'   => $categorias_labels,
+    'catValores'  => $categorias_valores
+];
+
+// 5. CARDS E FORMATAÇÃO (Exibindo sinal de menos nos cards)
 $cards = [
-    'Lucros' => ['valor' => number_format($dados['saldo_total'], 1, ',', '.'), 'porcentagem' => '+0%', 'cor' => 'text-teal-500'],
-    'Total de Receitas' => ['valor' => count(array_filter($transacoes, fn($t) => $t['tipo'] == 'e')), 'porcentagem' => '', 'cor' => 'text-teal-500'],
-    'Total de Despesas' => ['valor' => count(array_filter($transacoes, fn($t) => $t['tipo'] == 's')), 'porcentagem' => '', 'cor' => 'text-rose-500'],
-    'Saldo' => ['valor' => number_format($dados['saldo_total'], 1, ',', '.'), 'porcentagem' => '', 'cor' => 'text-teal-500'],
+    'Lucro Mensal' => [
+        'valor' => number_format($dados['receitas_mes'] - $dados['despesas_mes'], 2, ',', '.'), 
+        'porcentagem' => '', 
+        'cor' => 'text-teal-500'
+    ],
+    'Total de Receitas' => [
+        'valor' => count(array_filter($transacoes, fn($t) => $t['tipo'] == 'e')), 
+        'porcentagem' => '', 
+        'cor' => 'text-teal-500'
+    ],
+    'Total de Despesas' => [
+        // Adicionado sinal de menos visualmente aqui
+        'valor' => '-' . number_format($dados['despesas_mes'], 2, ',', '.'), 
+        'porcentagem' => '', 
+        'cor' => 'text-rose-500'
+    ],
+    'Saldo Total' => [
+        'valor' => number_format($dados['saldo_total'], 2, ',', '.'), 
+        'porcentagem' => '', 
+        'cor' => 'text-blue-500'
+    ],
 ];
 
 function formatarMoeda($valor) {
+    // Se o valor for menor que zero, o number_format já coloca o sinal de menos
     return 'R$ ' . number_format($valor, 2, ',', '.');
-} // Chave que faltava aqui
+}
+?>
+
+<script>
+    // Importante: O JS consolidado agora receberá valores negativos em 'despesas' e 'catValores'
+    const chartData = <?php echo json_encode($chartData); ?>;
+</script>

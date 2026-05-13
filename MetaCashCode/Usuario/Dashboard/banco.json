@@ -1,8 +1,50 @@
 {
-    "saldo_total": 12912,
-    "receitas_mes": 19336,
-    "despesas_mes": 6424,
+    "saldo_total": 72912,
+    "receitas_mes": 90336,
+    "despesas_mes": 17424,
     "transacoes": [
+        {
+            "titulo": "justus",
+            "valor": 34000,
+            "tipo": "e",
+            "cat": "Administrativo",
+            "data": "13\/05\/2026"
+        },
+        {
+            "titulo": "qwed",
+            "valor": 34000,
+            "tipo": "e",
+            "cat": "Administrativo",
+            "data": "13\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 4000,
+            "tipo": "s",
+            "cat": "Vendas",
+            "data": "13\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 4000,
+            "tipo": "s",
+            "cat": "Sal\u00e1rios",
+            "data": "13\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3000,
+            "tipo": "e",
+            "cat": "Administrativo",
+            "data": "13\/05\/2026"
+        },
+        {
+            "titulo": "rubens",
+            "valor": 3000,
+            "tipo": "s",
+            "cat": "Geral",
+            "data": "13\/05\/2026"
+        },
         {
             "titulo": "rubens",
             "valor": 30,
