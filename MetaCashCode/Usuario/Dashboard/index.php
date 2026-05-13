@@ -31,7 +31,8 @@ $categorias_valores = isset($categorias_valores) ? $categorias_valores : [];
 </head>
 <body class="flex bg-gray-50">
 
-<aside class="w-64 bg-[#0d1b2a] min-h-screen p-6 text-white flex flex-col border-r border-white/5">
+<!-- BARRA LATERAL FIXA -->
+<aside class="w-64 bg-[#0d1b2a] h-screen p-6 text-white flex flex-col border-r border-white/5 fixed left-0 top-0 overflow-y-auto z-40">
     <div class="mb-10 flex items-center gap-3">
         <div class="text-white font-bold text-lg">MetaCash</div>
     </div>
@@ -43,15 +44,15 @@ $categorias_valores = isset($categorias_valores) ? $categorias_valores : [];
             <i class="fas fa-exchange-alt"></i><span class="font-medium">Transações</span>
         </a>
         
-        <!-- NOVO BOTÃO DE RELATÓRIO NA SIDEBAR -->
         <button onclick="toggleRelatorioModal()" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-slate-800 transition border border-transparent hover:border-slate-700">
             <i class="fas fa-file-pdf"></i><span class="font-medium">Baixar Relatório</span>
         </button>
     </nav>
 </aside>
 
-<main class="flex-1 p-8">
-    <!-- Cabeçalho -->
+<!-- CONTEÚDO PRINCIPAL COM MARGEM À ESQUERDA -->
+<main class="flex-1 p-8 ml-64 min-h-screen">
+    <!-- O restante do seu conteúdo (Cabeçalho, Saldo, Gráficos, etc) permanece igual -->
     <div class="mb-8">
         <div class="flex justify-between items-start">
             <div>

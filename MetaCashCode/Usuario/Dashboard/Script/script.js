@@ -17,35 +17,41 @@ document.addEventListener('DOMContentLoaded', () => {
         if (btn) btn.addEventListener('click', () => toggle(true));
 
         modal.addEventListener('click', (e) => {
-            if (e.target === modal || e.target.classList.contains('btn-fechar')) {
+            if (e.target === modal || e.target.classList.contains('btn-fechar') || e.target.innerText === 'Cancelar') {
                 toggle(false);
             }
         });
     };
 
-    // IDs atualizados conforme os botões da sua Sidebar e Main
     setupModal('btnAbrirModal', 'modalTransacao'); 
     setupModal('btnAbrirRelatorio', 'modalRelatorio');
 
     // 2. INICIALIZAÇÃO DE GRÁFICOS
-    if (typeof chartData !== 'undefined') {
-        renderizarGraficos(chartData);
+    const data = (typeof CHART_DATA !== 'undefined') ? CHART_DATA : (typeof chartData !== 'undefined' ? chartData : null);
+    
+    if (data) {
+        renderizarGraficos(data);
     }
 });
 
 function renderizarGraficos(data) {
+    // Adicionado resizeDelay para evitar loops de redimensionamento em containers flexíveis
     const commonOptions = {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+        resizeDelay: 50 
     };
 
-    // --- Gráfico de Linha (Receitas vs Despesas Negativas vs Lucro) ---
+    // --- Gráfico de Linha ---
     const ctxLinha = document.getElementById('chartLinha')?.getContext('2d');
     if (ctxLinha) {
+        let chartStatus = Chart.getChart("chartLinha");
+        if (chartStatus !== undefined) { chartStatus.destroy(); }
+
         new Chart(ctxLinha, {
             type: 'line',
             data: {
-                labels: data.labelsMeses,
+                labels: data.labels || data.labelsMeses,
                 datasets: [
                     {
                         label: 'Receitas',
@@ -57,19 +63,10 @@ function renderizarGraficos(data) {
                     },
                     {
                         label: 'Despesas',
-                        data: data.despesas, // Valores negativos vindos do PHP
+                        data: data.despesas,
                         borderColor: '#e71d36',
                         backgroundColor: 'rgba(231, 29, 54, 0.1)',
                         fill: true,
-                        tension: 0.4
-                    },
-                    {
-                        label: 'Lucro Líquido',
-                        // Soma (pois despesa já é negativa: 1000 + (-400) = 600)
-                        data: data.receitas.map((rec, i) => rec + data.despesas[i]),
-                        borderColor: '#3a86ff',
-                        borderDash: [5, 5],
-                        fill: false,
                         tension: 0.4
                     }
                 ]
@@ -77,31 +74,25 @@ function renderizarGraficos(data) {
             options: { 
                 ...commonOptions, 
                 plugins: { 
-                    legend: { display: true, position: 'top' },
-                    tooltip: { mode: 'index', intersect: false }
-                },
-                scales: {
-                    y: {
-                        ticks: {
-                            callback: (value) => 'R$ ' + value.toLocaleString('pt-BR')
-                        }
-                    }
+                    legend: { display: true, position: 'top' }
                 }
             }
         });
     }
 
-    // --- Gráfico de Rosca (Distribuição de Gastos) ---
+    // --- Gráfico de Rosca ---
     const ctxPizza = document.getElementById('chartPizza')?.getContext('2d');
     if (ctxPizza) {
+        let chartStatus = Chart.getChart("chartPizza");
+        if (chartStatus !== undefined) { chartStatus.destroy(); }
+
         new Chart(ctxPizza, {
             type: 'doughnut',
             data: {
                 labels: data.catLabels,
                 datasets: [{
-                    // Math.abs garante que o gráfico desenhe mesmo com valores negativos
                     data: data.catValores.map(v => Math.abs(v)),
-                    backgroundColor: ['#0d1b2a', '#1b434d', '#2ec4b6', '#3a86ff', '#8338ec', '#ff9f1c', '#ef4444'],
+                    backgroundColor: ['#0d1b2a', '#1b434d', '#2ec4b6', '#3a86ff', '#8338ec', '#ff9f1c'],
                     borderWidth: 2,
                     borderColor: '#ffffff'
                 }]
@@ -110,18 +101,23 @@ function renderizarGraficos(data) {
                 ...commonOptions,
                 cutout: '70%',
                 plugins: {
-                    legend: { position: 'right' },
-                    tooltip: {
-                        callbacks: {
-                            label: (ctx) => {
-                                // Recupera o valor original (negativo) para exibir no texto
-                                const valorOriginal = data.catValores[ctx.dataIndex];
-                                return ` ${ctx.label}: R$ ${valorOriginal.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
-                            }
-                        }
-                    }
+                    legend: { position: 'right' }
                 }
             }
         });
     }
+}
+
+function toggleModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    if (modal.classList.contains('hidden')) {
+        modal.classList.replace('hidden', 'flex');
+    } else {
+        modal.classList.replace('flex', 'hidden');
+    }
+}
+
+function toggleRelatorioModal() {
+    toggleModal('modalRelatorio');
 }

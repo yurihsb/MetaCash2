@@ -1,161 +1,58 @@
-/* Paleta de cores e fontes */
-:root {
-    --bg-main: #f3f4f6;
-    --sidebar-dark: #0f172a;
-    --teal-primary: #14b8a6;
-    --text-slate: #64748b;
+/* Personalizações de Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
 }
 
-body {
-    background-color: var(--bg-main);
-    font-family: 'Inter', sans-serif;
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Efeitos de Glassmorphism para os cards de saldo */
+.balance-card {
+    background-image: radial-gradient(at top left, #1e293b, #0f172a);
+}
+
+/* Transições suaves para links da sidebar */
+.nav-link {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ajustes para impressão */
+@media print {
+    aside, button {
+        display: none !important;
+    }
+    main {
+        padding: 0;
+    }
+}
+
+/* Garante que o body e o html ocupem toda a altura */
+html, body {
+    height: 100%;
     margin: 0;
-    display: flex;
 }
 
-/* Sidebar */
-.sidebar {
-    background-color: var(--sidebar-dark);
-    width: 260px;
+/* Força a sidebar a ter no mínimo a altura da tela (viewport height) */
+aside {
     min-height: 100vh;
-    color: white;
-    padding: 2rem;
+    height: 100%;
+    position: sticky;
+    top: 0;
 }
 
-/* Cards */
-.card-container {
-    background: white;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem;
-}
-
-.saldo-hero {
-    background: var(--sidebar-dark);
-    color: white;
-    padding: 2rem;
-    border-radius: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-/* Tipografia e Status */
-.valor-entrada { color: var(--teal-primary); font-weight: bold; }
-.valor-saida { color: #f43f5e; font-weight: bold; }
-
-.btn-add {
-    background-color: var(--teal-primary);
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-.btn-add:hover { opacity: 0.9; }
-
-/* css/style.css */
-.sidebar-link-active {
-    background-color: #1b434d;
-    color: #2ec4b6;
-}
-
-#modalRelatorio, #modalTransacao {
-    transition: opacity 0.3s ease;
-}
-
-/* Esconde o campo de mês quando anual é selecionado no relatório */
-.hidden-field {
-    display: none;
-}
-
-
-/* style.css */
-.sidebar-main {
-    width: 16rem;
-    background-color: #0d1b2a;
-    min-height: 100vh;
-    padding: 1.5rem;
-    color: white;
+/* Ajuste opcional: se o conteúdo da direita for muito longo, 
+   a sidebar continuará visível ao rolar a página */
+.sidebar-container {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.nav-link-active {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background-color: #1b434d;
-    color: #2ec4b6;
-    padding: 0.75rem;
-    border-radius: 0.75rem;
-    font-weight: 500;
-}
-
-.nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    color: white;
-    transition: background 0.2s;
-}
-
-.nav-link:hover {
-    background-color: #1e293b;
-}
-
-.btn-report {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border-radius: 0.75rem;
-    color: #94a3b8;
-    border: 1px solid transparent;
-    transition: all 0.2s;
-}
-
-.btn-report:hover {
-    background-color: #1e293b;
-    border-color: #334155;
-}
-
-.balance-card {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1rem;
-    border-radius: 0.75rem;
-}
-
-.chart-container {
-    background-color: white;
-    padding: 1.5rem;
-    border-radius: 1rem;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-/* Estilos personalizados para o Dashboard */
-.backdrop-blur-sm {
-    backdrop-filter: blur(4px);
-}
-
-/* Transições suaves para os cards */
-.group:hover .text-rose-500 {
-    opacity: 1;
-}
-
-/* Ajustes de scrollbar se necessário */
-aside::-webkit-scrollbar {
-    width: 4px;
-}
-
-aside::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
 }
