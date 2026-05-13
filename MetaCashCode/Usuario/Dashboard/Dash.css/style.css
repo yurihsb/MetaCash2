@@ -54,3 +54,108 @@ body {
 }
 
 .btn-add:hover { opacity: 0.9; }
+
+/* css/style.css */
+.sidebar-link-active {
+    background-color: #1b434d;
+    color: #2ec4b6;
+}
+
+#modalRelatorio, #modalTransacao {
+    transition: opacity 0.3s ease;
+}
+
+/* Esconde o campo de mês quando anual é selecionado no relatório */
+.hidden-field {
+    display: none;
+}
+
+
+/* style.css */
+.sidebar-main {
+    width: 16rem;
+    background-color: #0d1b2a;
+    min-height: 100vh;
+    padding: 1.5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-link-active {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #1b434d;
+    color: #2ec4b6;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    color: white;
+    transition: background 0.2s;
+}
+
+.nav-link:hover {
+    background-color: #1e293b;
+}
+
+.btn-report {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    color: #94a3b8;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.btn-report:hover {
+    background-color: #1e293b;
+    border-color: #334155;
+}
+
+.balance-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.75rem;
+}
+
+.chart-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos personalizados para o Dashboard */
+.backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+}
+
+/* Transições suaves para os cards */
+.group:hover .text-rose-500 {
+    opacity: 1;
+}
+
+/* Ajustes de scrollbar se necessário */
+aside::-webkit-scrollbar {
+    width: 4px;
+}
+
+aside::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}

@@ -42,9 +42,26 @@ foreach ($transacoes as $tr) {
     }
 }
 
-// Prepara as variáveis EXATAS que o Chart.js no index.php está esperando
-$categorias_labels = array_keys($categorias);
-$categorias_valores = array_values($categorias);
+// Exemplo de como deve estar no seu data.php para o gráfico funcionar:
+$categorias_temp = [];
+
+// No loop do data.php
+foreach ($transacoes as $tr) {
+    $cat = $tr['cat'];
+    $valor = (float)$tr['valor'];
+    
+    if (!isset($categorias_temp[$cat])) $categorias_temp[$cat] = 0;
+    
+    // Se for entrada soma, se for saída subtrai
+    if ($tr['tipo'] == 'e') {
+        $categorias_temp[$cat] += $valor;
+    } else {
+        $categorias_temp[$cat] -= $valor;
+    }
+}
+
+$categorias_labels = array_keys($categorias_temp);
+$categorias_valores = array_values($categorias_temp);
 
 // Se não houver despesas, adiciona um valor fictício para o gráfico não sumir
 if (array_sum($categorias_valores) == 0) {
