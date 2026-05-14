@@ -15,77 +15,70 @@ $dados = [
 ];
 $transacoes = $storage['transacoes'] ?? [];
 
-// 2. LÓGICA PARA O GRÁFICO DE LINHA (Receitas vs Despesas Negativas)
+// 2. LÓGICA PARA O GRÁFICO DE LINHA (Histórico)
 $labels_meses = ['Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar'];
-
 $dados_receitas = [0, 0, 0, 0, 0, 0, (float)$dados['receitas_mes']]; 
-// Alterado para negativo aqui
 $dados_despesas = [0, 0, 0, 0, 0, 0, -(float)$dados['despesas_mes']]; 
 
-// 3. LÓGICA PARA O GRÁFICO DE PIZZA (Gastos por Categoria com valores negativos)
-$categorias_temp = [];
+// 3. LÓGICA PARA O GRÁFICO DE PIZZA/ROSCA
+$categorias_temp = [
+    'Administrativo' => 0,
+    'Vendas'         => 0,
+    'Marketing'      => 0,
+    'Salários'       => 0,
+    'Geral'          => 0
+];
+
 foreach ($transacoes as $tr) {
-    if ($tr['tipo'] == 's') {
-        $cat = $tr['cat'] ?? 'Geral';
-        $valor = (float)$tr['valor'];
-        
-        if (!isset($categorias_temp[$cat])) {
-            $categorias_temp[$cat] = 0;
+    $cat = $tr['cat'] ?? 'Geral';
+    $valor = (float)$tr['valor'];
+    
+    if (isset($tr['tipo'])) {
+        if ($tr['tipo'] == 's') {
+            // DESPESA: subtrai para ficar negativo
+            $categorias_temp[$cat] = ($categorias_temp[$cat] ?? 0) - $valor;
+        } else if ($tr['tipo'] == 'e') {
+            // RECEITA: soma para ficar positivo
+            $categorias_temp[$cat] = ($categorias_temp[$cat] ?? 0) + $valor;
         }
-        // Armazenamos como negativo
-        $categorias_temp[$cat] -= $valor;
     }
 }
 
-if (empty($categorias_temp)) {
-    $categorias_labels = ['Sem despesas'];
-    $categorias_valores = [0];
-} else {
-    $categorias_labels = array_keys($categorias_temp);
-    $categorias_valores = array_values($categorias_temp);
-}
+// CORREÇÃO CRUCIAL: Enviamos os valores REAIS (com sinal) para o JS
+$categorias_valores = array_values($categorias_temp);
+$categorias_labels = array_keys($categorias_temp);
 
-// 4. PREPARAÇÃO DO OBJETO PARA O JAVASCRIPT
+// 4. PREPARAÇÃO PARA O JAVASCRIPT
 $chartData = [
     'labelsMeses' => $labels_meses,
     'receitas'    => $dados_receitas,
     'despesas'    => $dados_despesas,
     'catLabels'   => $categorias_labels,
-    'catValores'  => $categorias_valores
+    'catValores'  => $categorias_valores // Agora vai com os sinais corretos
 ];
 
-// 5. CARDS E FORMATAÇÃO (Exibindo sinal de menos nos cards)
+// 5. CARDS DO DASHBOARD
+$lucro_mes = (float)$dados['receitas_mes'] - (float)$dados['despesas_mes'];
+
 $cards = [
     'Lucro Mensal' => [
-        'valor' => number_format($dados['receitas_mes'] - $dados['despesas_mes'], 2, ',', '.'), 
+        'valor' => ($lucro_mes > 0 ? '+' : '') . number_format($lucro_mes, 2, ',', '.'), 
         'porcentagem' => '', 
-        'cor' => 'text-teal-500'
+        'cor' => $lucro_mes >= 0 ? 'text-teal-500' : 'text-rose-500'
     ],
     'Total de Receitas' => [
-        'valor' => count(array_filter($transacoes, fn($t) => $t['tipo'] == 'e')), 
+        'valor' => '+' . number_format($dados['receitas_mes'], 2, ',', '.'), 
         'porcentagem' => '', 
         'cor' => 'text-teal-500'
     ],
     'Total de Despesas' => [
-        // Adicionado sinal de menos visualmente aqui
         'valor' => '-' . number_format($dados['despesas_mes'], 2, ',', '.'), 
         'porcentagem' => '', 
         'cor' => 'text-rose-500'
     ],
     'Saldo Total' => [
-        'valor' => number_format($dados['saldo_total'], 2, ',', '.'), 
+        'valor' => ($dados['saldo_total'] > 0 ? '+' : '') . number_format($dados['saldo_total'], 2, ',', '.'), 
         'porcentagem' => '', 
-        'cor' => 'text-blue-500'
+        'cor' => $dados['saldo_total'] >= 0 ? 'text-blue-500' : 'text-rose-500'
     ],
 ];
-
-function formatarMoeda($valor) {
-    // Se o valor for menor que zero, o number_format já coloca o sinal de menos
-    return 'R$ ' . number_format($valor, 2, ',', '.');
-}
-?>
-
-<script>
-    // Importante: O JS consolidado agora receberá valores negativos em 'despesas' e 'catValores'
-    const chartData = <?php echo json_encode($chartData); ?>;
-</script>

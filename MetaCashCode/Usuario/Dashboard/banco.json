@@ -1,119 +1,35 @@
 {
-    "saldo_total": 72912,
-    "receitas_mes": 90336,
-    "despesas_mes": 17424,
+    "saldo_total": 6000,
+    "receitas_mes": 7000,
+    "despesas_mes": 1000,
     "transacoes": [
         {
-            "titulo": "justus",
-            "valor": 34000,
+            "titulo": "marcelo",
+            "valor": 3000,
             "tipo": "e",
-            "cat": "Administrativo",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "qwed",
-            "valor": 34000,
-            "tipo": "e",
-            "cat": "Administrativo",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 4000,
-            "tipo": "s",
             "cat": "Vendas",
-            "data": "13\/05\/2026"
+            "data": "2026-05-03"
         },
         {
-            "titulo": "rubens",
-            "valor": 4000,
-            "tipo": "s",
-            "cat": "Sal\u00e1rios",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
+            "titulo": "marcelo",
             "valor": 3000,
             "tipo": "e",
-            "cat": "Administrativo",
-            "data": "13\/05\/2026"
+            "cat": "Geral",
+            "data": "2026-03-03"
         },
         {
             "titulo": "rubens",
-            "valor": 3000,
+            "valor": 1000,
             "tipo": "s",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
+            "cat": "Marketing",
+            "data": "2026-03-03"
         },
         {
             "titulo": "rubens",
-            "valor": 30,
+            "valor": 1000,
             "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "qwed",
-            "valor": 34,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "s",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "s",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Geral",
-            "data": "13\/05\/2026"
-        },
-        {
-            "titulo": "rubens",
-            "valor": 3212,
-            "tipo": "e",
-            "cat": "Administrativo",
-            "data": "13\/05\/2026"
+            "cat": "Vendas",
+            "data": "2026-03-03"
         }
     ]
 }
